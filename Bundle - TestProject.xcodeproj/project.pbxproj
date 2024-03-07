@@ -56,6 +56,9 @@
 		83C9B85C2B99C5210008A6FD /* Bundle - TestProject */ = {
 			isa = PBXGroup;
 			children = (
+				83C9B8732B99DDDA0008A6FD /* Common */,
+				83C9B8722B99DDD10008A6FD /* Network */,
+				83C9B8712B99DDCA0008A6FD /* Scenes */,
 				83C9B85D2B99C5210008A6FD /* AppDelegate.swift */,
 				83C9B85F2B99C5210008A6FD /* SceneDelegate.swift */,
 				83C9B8612B99C5210008A6FD /* ViewController.swift */,
@@ -65,6 +68,27 @@
 				83C9B86B2B99C5220008A6FD /* Info.plist */,
 			);
 			path = "Bundle - TestProject";
+			sourceTree = "<group>";
+		};
+		83C9B8712B99DDCA0008A6FD /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		83C9B8722B99DDD10008A6FD /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		83C9B8732B99DDDA0008A6FD /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,7 +242,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -275,7 +299,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
