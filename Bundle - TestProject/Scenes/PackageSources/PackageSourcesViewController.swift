@@ -9,4 +9,7 @@ import UIKit
 
 class PackageSourcesViewController: BaseViewController {
 
+    @IBAction func testButtonTapped(_ sender: Any) {
+        navigationRouter.navigate(toVC: .packageList)
+    }
 }

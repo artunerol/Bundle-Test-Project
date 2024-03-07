@@ -12,19 +12,10 @@ class AppNavigationController: UINavigationController {
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
         setupNavigationController()
-        configureRouter(for: rootViewController)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configureRouter(for rootViewController: UIViewController) {
-        if let rootVC = rootViewController as? BaseViewController {
-            rootVC.navigationRouter.baseNC = self
-        } else {
-            
-        }
     }
 }
 
@@ -34,6 +25,6 @@ extension AppNavigationController {
     private func setupNavigationController() {
         navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left")
         navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left")
-        navigationBar.tintColor = .systemPink
+        navigationBar.tintColor = .blue
     }
 }
