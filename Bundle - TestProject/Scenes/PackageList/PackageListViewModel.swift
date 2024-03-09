@@ -8,5 +8,12 @@
 import Foundation
 
 class PackageListViewModel {
+    private let networkLayer = NetworkLayer()
     
+    func fetch() {
+        networkLayer.request(model: PackageDataModel.self,
+                             apiURL: .packageList) { [weak self] result in
+            print(result)
+        }
+    }
 }

@@ -8,11 +8,12 @@
 import Foundation
 
 enum CustomError: Error {
-    case requestError
+    case requestError(error: Error)
     case throwError
 }
 
 class NetworkLayer {
+    private let baseURL = "https://bundle-api-contentstore-production.bundlenews.co/contentstore"
     private let requestHeaders: [String : String] = [
         "Content-Type" : "application/json",
         "language" : "TR",
@@ -21,22 +22,40 @@ class NetworkLayer {
         "Platform" : "IOS",
     ]
     
-    func request<T: Codable>(with model: T, url: URL, completion: @escaping (Result<T, CustomError>) -> Void) {
-        var request = URLRequest(url: url)
+    func request<T: Codable>(model: T.Type, 
+                             apiURL: ApiURLs,
+                             completion: @escaping (Result<T, CustomError>) -> Void) {
+        let urlString = baseURL + apiURL.getURLString()
+        
+        var request = URLRequest(url: urlString.convertToURL())
         request.allHTTPHeaderFields = requestHeaders
         
         URLSession.shared.dataTask(with: request) {data, _, error in
             guard let data = data else { return }
             
             if let error = error {
-                completion(.failure(.requestError))
+                completion(.failure(.requestError(error: error)))
             }
             
-            if let dataResponse = try? JSONDecoder().decode(T.self, from: data) {
+            if let dataResponse = try? JSONDecoder().decode(model, from: data) {
                 completion(.success(dataResponse))
             } else {
                 completion(.failure(.throwError))
             }
         }.resume()
+    }
+}
+
+enum ApiURLs {
+    case packageList
+    case packageSource(id: Int)
+    
+    func getURLString() -> String {
+        switch self {
+        case .packageList:
+            return "/packages"
+        case .packageSource(id: let id):
+            return "/packages/\(String(id))"
+        }
     }
 }

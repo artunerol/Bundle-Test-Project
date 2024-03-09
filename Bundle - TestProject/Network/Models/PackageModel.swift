@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct PackageDataModel: Codable {
+    let data: [PackageModel]
+}
+
 struct PackageModel: Codable {
     let id: Int
     let isAdded: Bool

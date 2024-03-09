@@ -8,6 +8,8 @@
 import UIKit
 
 class PackageListViewController: BaseViewController {
+    private let viewModel = PackageListViewModel()
+    
     @IBOutlet var packageListTableView: UITableView! {
         didSet {
             packageListTableView.register(UINib(nibName: PackageListTableViewCell.getNibName(), bundle: nil), forCellReuseIdentifier: PackageListTableViewCell.identifer)
@@ -17,6 +19,11 @@ class PackageListViewController: BaseViewController {
             packageListTableView.backgroundColor = .clear
             packageListTableView.separatorStyle = .none
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewModel.fetch()
     }
 }
 
