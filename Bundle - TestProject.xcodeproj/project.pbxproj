@@ -24,6 +24,15 @@
 		83CB55142B99F2A10086A089 /* PackageSourcesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CB55132B99F2A10086A089 /* PackageSourcesViewModel.swift */; };
 		83CB55182B99F2F20086A089 /* AppNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CB55172B99F2F20086A089 /* AppNavigationController.swift */; };
 		83CB551B2B99F41F0086A089 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CB551A2B99F41F0086A089 /* NavigationRouter.swift */; };
+		83EC98BE2B9B1B7900B3C968 /* PackageListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EC98BC2B9B1B7900B3C968 /* PackageListTableViewCell.swift */; };
+		83EC98BF2B9B1B7900B3C968 /* PackageListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83EC98BD2B9B1B7900B3C968 /* PackageListTableViewCell.xib */; };
+		83EC98C42B9B204F00B3C968 /* UIview+NibName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EC98C32B9B204F00B3C968 /* UIview+NibName.swift */; };
+		83EC98C82B9B21D600B3C968 /* AppFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EC98C72B9B21D600B3C968 /* AppFont.swift */; };
+		83EC98CA2B9B233600B3C968 /* PackageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EC98C92B9B233600B3C968 /* PackageModel.swift */; };
+		83EC98CD2B9B246200B3C968 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EC98CC2B9B246200B3C968 /* UIColor+Hex.swift */; };
+		83EC98D32B9B2B4F00B3C968 /* String+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EC98D22B9B2B4F00B3C968 /* String+URL.swift */; };
+		83EC98D52B9B2D5800B3C968 /* String+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EC98D42B9B2D5800B3C968 /* String+UIImage.swift */; };
+		83EC98DB2B9B445E00B3C968 /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EC98DA2B9B445E00B3C968 /* AppColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +52,15 @@
 		83CB55132B99F2A10086A089 /* PackageSourcesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageSourcesViewModel.swift; sourceTree = "<group>"; };
 		83CB55172B99F2F20086A089 /* AppNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationController.swift; sourceTree = "<group>"; };
 		83CB551A2B99F41F0086A089 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
+		83EC98BC2B9B1B7900B3C968 /* PackageListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageListTableViewCell.swift; sourceTree = "<group>"; };
+		83EC98BD2B9B1B7900B3C968 /* PackageListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PackageListTableViewCell.xib; sourceTree = "<group>"; };
+		83EC98C32B9B204F00B3C968 /* UIview+NibName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIview+NibName.swift"; sourceTree = "<group>"; };
+		83EC98C72B9B21D600B3C968 /* AppFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFont.swift; sourceTree = "<group>"; };
+		83EC98C92B9B233600B3C968 /* PackageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageModel.swift; sourceTree = "<group>"; };
+		83EC98CC2B9B246200B3C968 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		83EC98D22B9B2B4F00B3C968 /* String+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+URL.swift"; sourceTree = "<group>"; };
+		83EC98D42B9B2D5800B3C968 /* String+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UIImage.swift"; sourceTree = "<group>"; };
+		83EC98DA2B9B445E00B3C968 /* AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +120,7 @@
 		83C9B8722B99DDD10008A6FD /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				83EC98C92B9B233600B3C968 /* PackageModel.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -109,6 +128,9 @@
 		83C9B8732B99DDDA0008A6FD /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				83EC98D92B9B445300B3C968 /* AppColor */,
+				83EC98C62B9B21C200B3C968 /* AppFont */,
+				83EC98C02B9B1F6700B3C968 /* Extensions */,
 				83CB55152B99F2C90086A089 /* Navigation */,
 				83CB55082B99F2440086A089 /* Components */,
 				83CB55012B99E1E30086A089 /* BaseVC */,
@@ -148,6 +170,7 @@
 		83CB55082B99F2440086A089 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				83EC98BB2B9B1B4900B3C968 /* PackageListTableViewCell */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -175,6 +198,66 @@
 				83CB551A2B99F41F0086A089 /* NavigationRouter.swift */,
 			);
 			path = NavigationRouting;
+			sourceTree = "<group>";
+		};
+		83EC98BB2B9B1B4900B3C968 /* PackageListTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				83EC98BC2B9B1B7900B3C968 /* PackageListTableViewCell.swift */,
+				83EC98BD2B9B1B7900B3C968 /* PackageListTableViewCell.xib */,
+			);
+			path = PackageListTableViewCell;
+			sourceTree = "<group>";
+		};
+		83EC98C02B9B1F6700B3C968 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				83EC98D12B9B2B3A00B3C968 /* String */,
+				83EC98CB2B9B245800B3C968 /* UIColor */,
+				83EC98C52B9B218600B3C968 /* UIView */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		83EC98C52B9B218600B3C968 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				83EC98C32B9B204F00B3C968 /* UIview+NibName.swift */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		83EC98C62B9B21C200B3C968 /* AppFont */ = {
+			isa = PBXGroup;
+			children = (
+				83EC98C72B9B21D600B3C968 /* AppFont.swift */,
+			);
+			path = AppFont;
+			sourceTree = "<group>";
+		};
+		83EC98CB2B9B245800B3C968 /* UIColor */ = {
+			isa = PBXGroup;
+			children = (
+				83EC98CC2B9B246200B3C968 /* UIColor+Hex.swift */,
+			);
+			path = UIColor;
+			sourceTree = "<group>";
+		};
+		83EC98D12B9B2B3A00B3C968 /* String */ = {
+			isa = PBXGroup;
+			children = (
+				83EC98D22B9B2B4F00B3C968 /* String+URL.swift */,
+				83EC98D42B9B2D5800B3C968 /* String+UIImage.swift */,
+			);
+			path = String;
+			sourceTree = "<group>";
+		};
+		83EC98D92B9B445300B3C968 /* AppColor */ = {
+			isa = PBXGroup;
+			children = (
+				83EC98DA2B9B445E00B3C968 /* AppColor.swift */,
+			);
+			path = AppColor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,6 +328,7 @@
 			files = (
 				83C9B86A2B99C5220008A6FD /* LaunchScreen.storyboard in Resources */,
 				83CB550C2B99F2640086A089 /* PackageListViewController.xib in Resources */,
+				83EC98BF2B9B1B7900B3C968 /* PackageListTableViewCell.xib in Resources */,
 				83CB55072B99E21E0086A089 /* BaseViewController.xib in Resources */,
 				83C9B8672B99C5220008A6FD /* Assets.xcassets in Resources */,
 				83CB55122B99F2910086A089 /* PackageSourcesViewController.xib in Resources */,
@@ -258,12 +342,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83EC98D32B9B2B4F00B3C968 /* String+URL.swift in Sources */,
+				83EC98BE2B9B1B7900B3C968 /* PackageListTableViewCell.swift in Sources */,
+				83EC98D52B9B2D5800B3C968 /* String+UIImage.swift in Sources */,
 				83CB55182B99F2F20086A089 /* AppNavigationController.swift in Sources */,
 				83CB55062B99E21E0086A089 /* BaseViewController.swift in Sources */,
 				83C9B85E2B99C5210008A6FD /* AppDelegate.swift in Sources */,
+				83EC98DB2B9B445E00B3C968 /* AppColor.swift in Sources */,
 				83C9B8602B99C5210008A6FD /* SceneDelegate.swift in Sources */,
+				83EC98C42B9B204F00B3C968 /* UIview+NibName.swift in Sources */,
 				83CB55142B99F2A10086A089 /* PackageSourcesViewModel.swift in Sources */,
+				83EC98CD2B9B246200B3C968 /* UIColor+Hex.swift in Sources */,
 				83CB550B2B99F2640086A089 /* PackageListViewController.swift in Sources */,
+				83EC98CA2B9B233600B3C968 /* PackageModel.swift in Sources */,
+				83EC98C82B9B21D600B3C968 /* AppFont.swift in Sources */,
 				83CB550E2B99F27C0086A089 /* PackageListViewModel.swift in Sources */,
 				83CB551B2B99F41F0086A089 /* NavigationRouter.swift in Sources */,
 				83CB55112B99F2910086A089 /* PackageSourcesViewController.swift in Sources */,

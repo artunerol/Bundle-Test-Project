@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PackageListViewController" customModule="Bundle___TestProject" customModuleProvider="target">
             <connections>
+                <outlet property="packageListTableView" destination="o3p-os-3RB" id="taD-IL-f5A"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,27 +20,28 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Sx-C0-Onv">
-                    <rect key="frame" x="159" y="408.66666666666669" width="75" height="35"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                    <connections>
-                        <action selector="testButtonPressed:" destination="-1" eventType="touchUpInside" id="gl7-wv-tDd"/>
-                    </connections>
-                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="o3p-os-3RB">
+                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemPinkColor"/>
+            <color key="backgroundColor" systemColor="tintColor"/>
             <constraints>
-                <constraint firstItem="6Sx-C0-Onv" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="S3x-YY-8zZ"/>
-                <constraint firstItem="6Sx-C0-Onv" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="fNf-Zz-PAa"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="o3p-os-3RB" secondAttribute="bottom" id="Ec8-a3-ubl"/>
+                <constraint firstItem="o3p-os-3RB" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Q3C-eA-KVg"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="o3p-os-3RB" secondAttribute="trailing" id="V03-2s-O6d"/>
+                <constraint firstItem="o3p-os-3RB" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="avF-PJ-jn5"/>
             </constraints>
             <point key="canvasLocation" x="140" y="20"/>
         </view>
     </objects>
     <resources>
-        <systemColor name="systemPinkColor">
-            <color red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

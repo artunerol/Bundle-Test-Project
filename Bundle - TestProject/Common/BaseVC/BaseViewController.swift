@@ -17,11 +17,12 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = AppColor.background.getColor()
         setNavigationBackBarButton()
     }
     
     private func setNavigationBackBarButton() {
-        // Removing BackButton titles from every VC inside Navigation Stack
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "")
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "") // Removing BackButton titles from every VC inside Navigation Stack
+        edgesForExtendedLayout = .top // Stretches viewcontroller over navigationbar
     }
 }
