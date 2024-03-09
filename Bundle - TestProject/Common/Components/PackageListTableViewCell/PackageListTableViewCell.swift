@@ -8,6 +8,7 @@
 import UIKit
 
 class PackageListTableViewCell: UITableViewCell {
+    static let height: CGFloat = 120
     static let identifer: String = "PackageListTableViewCell"
     
     @IBOutlet private var thumbnailImageView: UIImageView!
@@ -17,8 +18,17 @@ class PackageListTableViewCell: UITableViewCell {
         }
     }
     
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        if selected {
+            animateSelection()
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
+        selectionStyle = .none
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10,
                                                                      left: 0,
                                                                      bottom: 10,
@@ -37,7 +47,10 @@ class PackageListTableViewCell: UITableViewCell {
             }
         }
     }
-    
+}
+
+// MARK: - Helpers
+extension PackageListTableViewCell {
     private func setupContentView() {
         //Setting shadow and cornerRadius for contentview because contentView offset was used for cell spacing
         backgroundColor = .clear
@@ -50,5 +63,19 @@ class PackageListTableViewCell: UITableViewCell {
         contentView.layer.shadowColor = UIColor.white.cgColor
         
         contentView.layer.cornerRadius = 8
+    }
+    
+    private func animateSelection() {
+        UIView.animate(withDuration: 0.15,
+                       delay: 0,
+                       options: .curveLinear) {
+            self.contentView.transform = CGAffineTransform(scaleX: 1, y: 1.05)
+        } completion: { [weak self] isCompleted in
+            if isCompleted {
+                UIView.animate(withDuration: 0.15) {
+                    self?.contentView.transform = .identity
+                }
+            }
+        }
     }
 }

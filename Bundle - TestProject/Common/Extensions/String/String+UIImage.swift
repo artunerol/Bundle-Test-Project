@@ -9,7 +9,7 @@ import UIKit
 
 extension String {
     func getImage(completion: @escaping (UIImage?) -> Void) {
-        // URL session used instead in need of async image process
+        // URL session used in need of async image process
         
         let request = URLRequest(url: self.convertToURL())
         let _ = URLSession.shared.dataTask(with: request) { data, _, _ in
