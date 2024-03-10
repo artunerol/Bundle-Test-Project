@@ -10,7 +10,7 @@ import UIKit
 
 extension UIImageView {
     func loadImageWith(url: URL, cacheID: Int) {
-        let imageCache = NSCache<NSNumber, UIImage>()
+        var imageCache = AppCache.shared.cache
         
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
