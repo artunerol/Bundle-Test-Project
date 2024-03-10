@@ -10,6 +10,7 @@ import Foundation
 enum CustomError: Error {
     case requestError(error: Error)
     case throwError
+    case defaultError
 }
 
 class NetworkLayer {

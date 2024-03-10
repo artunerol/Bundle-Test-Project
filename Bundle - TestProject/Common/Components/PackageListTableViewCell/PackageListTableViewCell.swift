@@ -28,24 +28,20 @@ class PackageListTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        selectionStyle = .none
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10,
-                                                                     left: 0,
-                                                                     bottom: 10,
-                                                                     right: 0))
+        setupContentView()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        thumbnailImageView.image = nil
     }
     
     func configure(with model: PackageModel) {
-        setupContentView()
         descriptionLabel.text = model.description
         descriptionLabel.textColor = UIColor(hex: model.style.fontColor)
         
         // 3rd party libraries could be used instead of this solution. Such as: Kingfisher
-        model.image.getImage { [weak self] image in
-            DispatchQueue.main.async {
-                self?.thumbnailImageView.image = image
-            }
-        }
+        thumbnailImageView.loadImageWith(url: model.image.convertToURL(), cacheID: model.id)
     }
 }
 
@@ -53,6 +49,11 @@ class PackageListTableViewCell: UITableViewCell {
 extension PackageListTableViewCell {
     private func setupContentView() {
         //Setting shadow and cornerRadius for contentview because contentView offset was used for cell spacing
+        selectionStyle = .none
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10,
+                                                                     left: 0,
+                                                                     bottom: 10,
+                                                                     right: 0))
         backgroundColor = .clear
         
         contentView.backgroundColor = AppColor.primary.getColor()
