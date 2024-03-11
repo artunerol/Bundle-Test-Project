@@ -35,6 +35,7 @@ class PackageListViewController: BaseViewController {
 
 extension PackageListViewController {
     private func bind() {
+        bindLoadingStatus()
         bindPackageListResponse()
         bindError()
     }
@@ -67,6 +68,17 @@ extension PackageListViewController {
                     print("Handle Default error")
                 }
             })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindLoadingStatus() {
+        viewModel
+            .showLoadingStatus
+            .observe(on: MainScheduler.instance)
+            .skip(1)
+            .bind { [weak self] isLoading in
+                self?.toggleLoading(isLoading)
+            }
             .disposed(by: disposeBag)
     }
 }
