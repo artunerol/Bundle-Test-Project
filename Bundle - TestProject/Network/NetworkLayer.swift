@@ -56,7 +56,7 @@ enum ApiURLs {
         case .packageList:
             return "/packages"
         case .packageSource(id: let id):
-            return "/packages/\(String(id))"
+            return "/package/\(String(id))"
         }
     }
 }

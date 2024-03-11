@@ -15,7 +15,7 @@ class PackageListViewController: BaseViewController {
     
     @IBOutlet var packageListTableView: UITableView! {
         didSet {
-            packageListTableView.register(UINib(nibName: PackageListTableViewCell.getNibName(), bundle: nil), forCellReuseIdentifier: PackageListTableViewCell.identifer)
+            packageListTableView.register(UINib(nibName: PackageTableViewCell.getNibName(), bundle: nil), forCellReuseIdentifier: PackageTableViewCell.identifer)
             packageListTableView.delegate = self
             packageListTableView.dataSource = self
             
@@ -87,17 +87,23 @@ extension PackageListViewController {
 
 extension PackageListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        PackageListTableViewCell.height
+        PackageTableViewCell.height
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.packageListResponse.value?.data.count ?? 0
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let selectedPackage = tableView.cellForRow(at: indexPath) as? PackageTableViewCell else { return }
+        navigationRouter.navigate(toVC: .packageSource(id: selectedPackage.model?.id ?? 0))
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PackageListTableViewCell.identifer,for: indexPath) as? PackageListTableViewCell else { return UITableViewCell() }
-        let packageListItem = viewModel.packageListResponse.value?.data ?? []
-        cell.configure(with: packageListItem[indexPath.row])
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PackageTableViewCell.identifer,for: indexPath) as? PackageTableViewCell else { return UITableViewCell() }
+        let packageListItemArray = viewModel.packageListResponse.value?.data ?? []
+        let item = packageListItemArray[indexPath.row]
+        cell.configure(with: item, type: .packageList)
         
         return cell
     }

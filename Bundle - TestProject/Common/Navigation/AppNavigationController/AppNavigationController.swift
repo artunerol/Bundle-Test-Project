@@ -25,6 +25,6 @@ extension AppNavigationController {
     private func setupNavigationController() {
         navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left")
         navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left")
-        navigationBar.tintColor = .blue
+        navigationBar.tintColor = .white
     }
 }

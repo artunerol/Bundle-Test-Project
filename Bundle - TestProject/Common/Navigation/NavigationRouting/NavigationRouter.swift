@@ -30,14 +30,14 @@ class NavigationRouter {
 enum NavigationEnum {
     // NavigationEnum is adding a control layer over ViewControllers since Enums should be exhaustive.
     case packageList
-    case packageSource
+    case packageSource(id: Int)
     
     func getViewController() -> UIViewController {
         switch self {
         case .packageList:
             PackageListViewController()
-        case .packageSource:
-            PackageSourcesViewController()
+        case .packageSource(let id):
+            PackageSourcesViewController(id: id)
         }
     }
 }

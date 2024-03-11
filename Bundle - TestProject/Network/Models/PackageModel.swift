@@ -14,9 +14,10 @@ struct PackageDataModel: Codable {
 struct PackageModel: Codable {
     let id: Int
     let isAdded: Bool
-    let description: String
-    let image: String
-    let style: PackageStyleModel
+    let name: String?
+    let description: String?
+    let image: String?
+    let style: PackageStyleModel?
 }
 
 struct PackageStyleModel: Codable {

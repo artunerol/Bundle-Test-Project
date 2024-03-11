@@ -7,13 +7,21 @@
 
 import UIKit
 
-class PackageListTableViewCell: UITableViewCell {
+enum PackageType {
+    case packageList
+    case packageSource
+}
+
+class PackageTableViewCell: UITableViewCell {
+    var model: PackageModel? = nil
     static let height: CGFloat = 120
     static let identifer: String = "PackageListTableViewCell"
+
     
     @IBOutlet private var thumbnailImageView: UIImageView!
     @IBOutlet private var descriptionLabel: UILabel! {
         didSet {
+            descriptionLabel.textColor = .white
             descriptionLabel.font = AppFont.description.getFont()
         }
     }
@@ -24,7 +32,12 @@ class PackageListTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-//        toggleSelection()
+        
+        if selected {
+            isAdded = true
+            toggleButtonSelection()
+            animateSelection()
+        }
     }
     
     override func layoutSubviews() {
@@ -37,19 +50,30 @@ class PackageListTableViewCell: UITableViewCell {
         thumbnailImageView.image = nil
     }
     
-    func configure(with model: PackageModel) {
-        descriptionLabel.text = model.description
-        descriptionLabel.textColor = UIColor(hex: model.style.fontColor) //Getting fontColor from API
-        isAdded = model.isAdded
+    func configure(with model: PackageModel, type: PackageType) {
+        self.model = model
         
-        // 3rd party libraries could be used instead of this solution. Such as: Kingfisher
-        thumbnailImageView.loadImageWith(urlString: model.image)
-        toggleSelection()
+        switch type {
+        case .packageList:
+            thumbnailImageView.isHidden = false
+            descriptionLabel.text = model.description
+            descriptionLabel.textColor = UIColor(hex: model.style?.fontColor ?? "") //Getting fontColor from API
+            isAdded = model.isAdded
+            
+            thumbnailImageView.loadImageWith(urlString: model.image ?? "")
+            toggleButtonSelection()
+            
+        case .packageSource:
+            thumbnailImageView.isHidden = true
+            descriptionLabel.text = model.name
+            isAdded = model.isAdded
+            toggleButtonSelection()
+        }
     }
 }
 
 // MARK: - Helpers
-extension PackageListTableViewCell {
+extension PackageTableViewCell {
     private func setupContentView() {
         backgroundColor = .clear
         selectionStyle = .none
@@ -68,7 +92,7 @@ extension PackageListTableViewCell {
         contentView.layer.cornerRadius = 8
     }
     
-    private func toggleSelection() {
+    private func toggleButtonSelection() {
         if isAdded {
             selectionButton.setImage(UIImage(systemName: "checkmark.square.fill"),
                                      for: .normal)
