@@ -9,24 +9,24 @@ import Foundation
 import UIKit
 
 extension UIImageView {
-    func loadImageWith(url: URL, cacheID: Int) {
-        var imageCache = AppCache.shared.cache
+    func loadImageWith(urlString: String) {
+        let cache = AppCache.shared.cache
         
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
             
-            if let cacheImage = imageCache.object(forKey: NSNumber(integerLiteral: cacheID)) {
+            if let cacheImage = cache.object(forKey: NSString(string: urlString)) { //Setting cache key same as url.
                 DispatchQueue.main.async {
-                    self.image = cacheImage
+                    self.image = cacheImage as? UIImage
                 }
                 return
             } else {
-                let request = URLRequest(url: url)
+                let request = URLRequest(url: urlString.convertToURL())
                 let _ = URLSession.shared.dataTask(with: request) { data, _, _ in
                     guard let dataUnwrapped = data,
                           let imageUnwrapped = UIImage(data: dataUnwrapped) else { return }
                     
-                    imageCache.setObject(imageUnwrapped, forKey: NSNumber(integerLiteral: cacheID))
+                    cache.setObject(imageUnwrapped, forKey: NSString(string: urlString))
                     DispatchQueue.main.async {
                         self.image = imageUnwrapped
                     }

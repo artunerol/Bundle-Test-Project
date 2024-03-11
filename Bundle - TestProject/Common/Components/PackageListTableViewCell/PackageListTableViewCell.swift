@@ -18,12 +18,13 @@ class PackageListTableViewCell: UITableViewCell {
         }
     }
     
+    @IBOutlet private var selectionButton: UIButton!
+    
+    private var isAdded: Bool = false
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        if selected {
-            animateSelection()
-        }
+//        toggleSelection()
     }
     
     override func layoutSubviews() {
@@ -38,23 +39,24 @@ class PackageListTableViewCell: UITableViewCell {
     
     func configure(with model: PackageModel) {
         descriptionLabel.text = model.description
-        descriptionLabel.textColor = UIColor(hex: model.style.fontColor)
+        descriptionLabel.textColor = UIColor(hex: model.style.fontColor) //Getting fontColor from API
+        isAdded = model.isAdded
         
         // 3rd party libraries could be used instead of this solution. Such as: Kingfisher
-        thumbnailImageView.loadImageWith(url: model.image.convertToURL(), cacheID: model.id)
+        thumbnailImageView.loadImageWith(urlString: model.image)
+        toggleSelection()
     }
 }
 
 // MARK: - Helpers
 extension PackageListTableViewCell {
     private func setupContentView() {
-        //Setting shadow and cornerRadius for contentview because contentView offset was used for cell spacing
+        backgroundColor = .clear
         selectionStyle = .none
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10,
                                                                      left: 0,
                                                                      bottom: 10,
                                                                      right: 0))
-        backgroundColor = .clear
         
         contentView.backgroundColor = AppColor.primary.getColor()
         contentView.layer.masksToBounds = false
@@ -66,17 +68,26 @@ extension PackageListTableViewCell {
         contentView.layer.cornerRadius = 8
     }
     
+    private func toggleSelection() {
+        if isAdded {
+            selectionButton.setImage(UIImage(systemName: "checkmark.square.fill"),
+                                     for: .normal)
+        } else {
+            selectionButton.setImage(UIImage(systemName: "square"),
+                                     for: .normal)
+        }
+    }
+    
     private func animateSelection() {
-        UIView.animate(withDuration: 0.15,
-                       delay: 0,
-                       options: .curveLinear) {
-            self.contentView.transform = CGAffineTransform(scaleX: 1, y: 1.05)
-        } completion: { [weak self] isCompleted in
-            if isCompleted {
-                UIView.animate(withDuration: 0.15) {
-                    self?.contentView.transform = .identity
+        UIView.animate(withDuration: 0.1,
+                       animations: {
+            self.transform = CGAffineTransform(scaleX: 0.97, y: 0.97)
+        }, completion: { [weak self] completed in
+            if completed {
+                UIView.animate(withDuration: 0.1) {
+                    self?.transform = .identity
                 }
             }
-        }
+        })
     }
 }

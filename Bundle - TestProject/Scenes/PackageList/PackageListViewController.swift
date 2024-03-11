@@ -57,7 +57,7 @@ extension PackageListViewController {
             .observe(on: MainScheduler.instance)
             .skip(1)
             .bind(onNext: { [weak self] error in
-                guard let self = self else { return }
+                guard let _ = self else { return }
                 switch error {
                 case .requestError(error: let error):
                     print("Handle Request Error. Description: \(error.localizedDescription)")
@@ -80,10 +80,6 @@ extension PackageListViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.packageListResponse.value?.data.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -10,5 +10,5 @@ import UIKit
 class AppCache {
     static let shared = AppCache()
     
-    let cache = NSCache<NSNumber, UIImage>()
+    let cache = NSCache<NSString, AnyObject>()
 }
