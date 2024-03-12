@@ -15,7 +15,7 @@ class PackageSourcesViewController: BaseViewController {
     
     @IBOutlet private var packageSourceTableView: UITableView! {
         didSet {
-            packageSourceTableView.register(UINib(nibName: PackageTableViewCell.getNibName(), bundle: nil), forCellReuseIdentifier: PackageTableViewCell.identifer)
+            packageSourceTableView.register(UINib(nibName: PackageTableViewCell.getNibName(), bundle: nil), forCellReuseIdentifier: PackageTableViewCell.Constants.identifer)
             packageSourceTableView.delegate = self
             packageSourceTableView.dataSource = self
             packageSourceTableView.backgroundColor = .clear
@@ -37,15 +37,20 @@ class PackageSourcesViewController: BaseViewController {
 
 extension PackageSourcesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        PackageTableViewCell.height
+        PackageTableViewCell.Constants.height
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.packageSourceResponse.value?.count ?? 0
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? PackageTableViewCell else { return }
+        cell.didSelected()
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PackageTableViewCell.identifer,for: indexPath) as? PackageTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PackageTableViewCell.Constants.identifer,for: indexPath) as? PackageTableViewCell else { return UITableViewCell() }
         let packageSourceItem = viewModel.packageSourceResponse.value ?? []
         cell.configure(with: packageSourceItem[indexPath.row], type: .packageSource)
         
@@ -57,7 +62,6 @@ extension PackageSourcesViewController: UITableViewDelegate, UITableViewDataSour
 
 extension PackageSourcesViewController {
     private func bind() {
-        bindLoadingStatus()
         bindPackageListResponse()
         bindError()
     }
@@ -90,17 +94,6 @@ extension PackageSourcesViewController {
                     print("Handle Default error")
                 }
             })
-            .disposed(by: disposeBag)
-    }
-    
-    private func bindLoadingStatus() {
-        viewModel
-            .showLoadingStatus
-            .observe(on: MainScheduler.instance)
-            .skip(1)
-            .bind { [weak self] isLoading in
-                self?.toggleLoading(isLoading)
-            }
             .disposed(by: disposeBag)
     }
 }

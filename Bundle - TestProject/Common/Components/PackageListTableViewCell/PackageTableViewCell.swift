@@ -6,19 +6,20 @@
 //
 
 import UIKit
-
-enum PackageType {
-    case packageList
-    case packageSource
-}
+import RxSwift
+import RxCocoa
 
 class PackageTableViewCell: UITableViewCell {
-    var model: PackageModel? = nil
-    static let height: CGFloat = 120
-    static let identifer: String = "PackageListTableViewCell"
-
+    struct Constants {
+        static let height: CGFloat = 120
+        static let identifer: String = "PackageListTableViewCell"
+    }
     
-    @IBOutlet private var thumbnailImageView: UIImageView!
+    private let viewModel = PackageTableViewCellViewModel()
+    private let disposeBag = DisposeBag()
+    
+    var packageModel = PackageModel()
+    
     @IBOutlet private var descriptionLabel: UILabel! {
         didSet {
             descriptionLabel.textColor = .white
@@ -26,49 +27,53 @@ class PackageTableViewCell: UITableViewCell {
         }
     }
     
+    @IBOutlet private var thumbnailImageView: UIImageView!
     @IBOutlet private var selectionButton: UIButton!
-    
-    private var isAdded: Bool = false
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        if selected {
-            isAdded = true
-            toggleButtonSelection()
-            animateSelection()
-        }
-    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         setupContentView()
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        thumbnailImageView.image = nil
-    }
-    
     func configure(with model: PackageModel, type: PackageType) {
-        self.model = model
-        
         switch type {
         case .packageList:
             thumbnailImageView.isHidden = false
+            thumbnailImageView.loadImageWith(urlString: model.image ?? "")
             descriptionLabel.text = model.description
             descriptionLabel.textColor = UIColor(hex: model.style?.fontColor ?? "") //Getting fontColor from API
-            isAdded = model.isAdded
-            
-            thumbnailImageView.loadImageWith(urlString: model.image ?? "")
-            toggleButtonSelection()
-            
         case .packageSource:
             thumbnailImageView.isHidden = true
             descriptionLabel.text = model.name
-            isAdded = model.isAdded
-            toggleButtonSelection()
         }
+        
+        self.packageModel = model
+        configureSelectionButton(with: viewModel.isCellSelectedRelay.value)
+    }
+}
+
+// MARK: - CellDidSelected
+
+extension PackageTableViewCell {
+    func didSelected() {
+        var isSelected = viewModel.isCellSelectedRelay.value
+        isSelected.toggle()
+        
+        viewModel.isCellSelectedRelay.accept(isSelected)
+        configureSelectionButton(with: isSelected)
+        animateSelection()
+    }
+    
+    private func getSelectedSource() {
+        let selectedSourcesIDs = UserDefaults.standard.object(forKey: UserdefaultsKeys.selectedSourceIDs) as? [Int]
+        
+//        if selectedSourcesIDs?.contains(where: { [weak self] sourceID in
+//            sourceID == self?.packageModel.id
+//        })
+    }
+    
+    private func saveSelectedSource() {
+        
     }
 }
 
@@ -92,7 +97,7 @@ extension PackageTableViewCell {
         contentView.layer.cornerRadius = 8
     }
     
-    private func toggleButtonSelection() {
+    private func configureSelectionButton(with isAdded: Bool) {
         if isAdded {
             selectionButton.setImage(UIImage(systemName: "checkmark.square.fill"),
                                      for: .normal)
@@ -114,4 +119,9 @@ extension PackageTableViewCell {
             }
         })
     }
+}
+
+enum PackageType {
+    case packageList
+    case packageSource
 }

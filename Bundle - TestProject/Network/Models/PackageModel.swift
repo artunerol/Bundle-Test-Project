@@ -18,6 +18,20 @@ struct PackageModel: Codable {
     let description: String?
     let image: String?
     let style: PackageStyleModel?
+    
+    init(id: Int = 0,
+         isAdded: Bool = false,
+         name: String? = nil,
+         description: String? = nil,
+         image: String? = nil,
+         style: PackageStyleModel? = nil) {
+        self.id = id
+        self.isAdded = isAdded
+        self.name = name
+        self.description = description
+        self.image = image
+        self.style = style
+    }
 }
 
 struct PackageStyleModel: Codable {

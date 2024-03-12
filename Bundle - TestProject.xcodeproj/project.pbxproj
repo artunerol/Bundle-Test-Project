@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		838D821E2B9DDF290089A21D /* UIImageView+LoadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838D821D2B9DDF290089A21D /* UIImageView+LoadImage.swift */; };
 		838D82242B9DEFF80089A21D /* AppCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838D82232B9DEFF80089A21D /* AppCache.swift */; };
+		83A77B242BA07C19009A6727 /* PackageTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A77B232BA07C19009A6727 /* PackageTableViewCellViewModel.swift */; };
+		83A77B272BA09E30009A6727 /* UserdefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A77B262BA09E30009A6727 /* UserdefaultsKeys.swift */; };
 		83C9B85E2B99C5210008A6FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C9B85D2B99C5210008A6FD /* AppDelegate.swift */; };
 		83C9B8602B99C5210008A6FD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C9B85F2B99C5210008A6FD /* SceneDelegate.swift */; };
 		83C9B8672B99C5220008A6FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83C9B8662B99C5220008A6FD /* Assets.xcassets */; };
@@ -40,6 +42,8 @@
 /* Begin PBXFileReference section */
 		838D821D2B9DDF290089A21D /* UIImageView+LoadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+LoadImage.swift"; sourceTree = "<group>"; };
 		838D82232B9DEFF80089A21D /* AppCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCache.swift; sourceTree = "<group>"; };
+		83A77B232BA07C19009A6727 /* PackageTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		83A77B262BA09E30009A6727 /* UserdefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserdefaultsKeys.swift; sourceTree = "<group>"; };
 		83C9B85A2B99C5210008A6FD /* Bundle - TestProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bundle - TestProject.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83C9B85D2B99C5210008A6FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83C9B85F2B99C5210008A6FD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +101,14 @@
 			path = Cache;
 			sourceTree = "<group>";
 		};
+		83A77B252BA09E1D009A6727 /* UserdefaultsKeys */ = {
+			isa = PBXGroup;
+			children = (
+				83A77B262BA09E30009A6727 /* UserdefaultsKeys.swift */,
+			);
+			path = UserdefaultsKeys;
+			sourceTree = "<group>";
+		};
 		83C9B8512B99C5210008A6FD = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +161,7 @@
 		83C9B8732B99DDDA0008A6FD /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				83A77B252BA09E1D009A6727 /* UserdefaultsKeys */,
 				838D82222B9DEFE30089A21D /* Cache */,
 				83EC98D92B9B445300B3C968 /* AppColor */,
 				83EC98C62B9B21C200B3C968 /* AppFont */,
@@ -227,6 +240,7 @@
 			children = (
 				83EC98BC2B9B1B7900B3C968 /* PackageTableViewCell.swift */,
 				83EC98BD2B9B1B7900B3C968 /* PackageTableViewCell.xib */,
+				83A77B232BA07C19009A6727 /* PackageTableViewCellViewModel.swift */,
 			);
 			path = PackageListTableViewCell;
 			sourceTree = "<group>";
@@ -373,12 +387,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				838D82242B9DEFF80089A21D /* AppCache.swift in Sources */,
+				83A77B242BA07C19009A6727 /* PackageTableViewCellViewModel.swift in Sources */,
 				83EC98DD2B9C9CDF00B3C968 /* NetworkLayer.swift in Sources */,
 				83EC98D32B9B2B4F00B3C968 /* String+URL.swift in Sources */,
 				838D821E2B9DDF290089A21D /* UIImageView+LoadImage.swift in Sources */,
 				83EC98BE2B9B1B7900B3C968 /* PackageTableViewCell.swift in Sources */,
 				83CB55182B99F2F20086A089 /* AppNavigationController.swift in Sources */,
 				83CB55062B99E21E0086A089 /* BaseViewController.swift in Sources */,
+				83A77B272BA09E30009A6727 /* UserdefaultsKeys.swift in Sources */,
 				83C9B85E2B99C5210008A6FD /* AppDelegate.swift in Sources */,
 				83EC98DB2B9B445E00B3C968 /* AppColor.swift in Sources */,
 				83C9B8602B99C5210008A6FD /* SceneDelegate.swift in Sources */,
