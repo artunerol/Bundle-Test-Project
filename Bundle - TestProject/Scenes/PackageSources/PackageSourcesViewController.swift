@@ -15,7 +15,7 @@ class PackageSourcesViewController: BaseViewController {
     
     @IBOutlet private var packageSourceTableView: UITableView! {
         didSet {
-            packageSourceTableView.register(UINib(nibName: PackageTableViewCell.getNibName(), bundle: nil), forCellReuseIdentifier: PackageTableViewCell.Constants.identifer)
+            packageSourceTableView.register(UINib(nibName: PackageSourceTableViewCell.getNibName(), bundle: nil), forCellReuseIdentifier: PackageSourceTableViewCell.Constants.identifer)
             packageSourceTableView.delegate = self
             packageSourceTableView.dataSource = self
             packageSourceTableView.backgroundColor = .clear
@@ -37,7 +37,7 @@ class PackageSourcesViewController: BaseViewController {
 
 extension PackageSourcesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        PackageTableViewCell.Constants.height
+        PackageSourceTableViewCell.Constants.height
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -45,14 +45,14 @@ extension PackageSourcesViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? PackageTableViewCell else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) as? PackageSourceTableViewCell else { return }
         cell.didSelected()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PackageTableViewCell.Constants.identifer,for: indexPath) as? PackageTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PackageSourceTableViewCell.Constants.identifer,for: indexPath) as? PackageSourceTableViewCell else { return UITableViewCell() }
         let packageSourceItem = viewModel.packageSourceResponse.value ?? []
-        cell.configure(with: packageSourceItem[indexPath.row], type: .packageSource)
+        cell.configure(with: packageSourceItem[indexPath.row])
         
         return cell
     }

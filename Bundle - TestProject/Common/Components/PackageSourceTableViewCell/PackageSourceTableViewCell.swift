@@ -1,24 +1,20 @@
 //
-//  PackageListTableViewCell.swift
+//  PackageSourceTableViewCell.swift
 //  Bundle - TestProject
 //
-//  Created by Artun Erol on 8.03.2024.
+//  Created by Artun Erol on 12.03.2024.
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
 
-class PackageTableViewCell: UITableViewCell {
+class PackageSourceTableViewCell: UITableViewCell {
     struct Constants {
         static let height: CGFloat = 120
-        static let identifer: String = "PackageListTableViewCell"
+        static let identifer: String = "PackageSourceTableViewCell"
     }
     
-    private let viewModel = PackageTableViewCellViewModel()
-    private let disposeBag = DisposeBag()
-    
-    var packageModel = PackageModel()
+    private let viewModel = PackageSourceCellModel()
+    private let sourceResponseModel = PackageSourceModel()
     
     @IBOutlet private var descriptionLabel: UILabel! {
         didSet {
@@ -27,58 +23,41 @@ class PackageTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet private var thumbnailImageView: UIImageView!
     @IBOutlet private var selectionButton: UIButton!
     
+    private var isCellSelected: Bool = false
+
     override func layoutSubviews() {
         super.layoutSubviews()
         setupContentView()
     }
     
-    func configure(with model: PackageModel, type: PackageType) {
-        switch type {
-        case .packageList:
-            thumbnailImageView.isHidden = false
-            thumbnailImageView.loadImageWith(urlString: model.image ?? "")
-            descriptionLabel.text = model.description
-            descriptionLabel.textColor = UIColor(hex: model.style?.fontColor ?? "") //Getting fontColor from API
-        case .packageSource:
-            thumbnailImageView.isHidden = true
-            descriptionLabel.text = model.name
-        }
-        
-        self.packageModel = model
-        configureSelectionButton(with: viewModel.isCellSelectedRelay.value)
+    func configure(with model: PackageSourceModel) {
+        descriptionLabel.text = model.name
+        configureSelectionButton(with: isCellSelected)
     }
 }
 
 // MARK: - CellDidSelected
-
-extension PackageTableViewCell {
+extension PackageSourceTableViewCell {
     func didSelected() {
-        var isSelected = viewModel.isCellSelectedRelay.value
-        isSelected.toggle()
+        var isCellSelected = isCellSelected
+        isCellSelected.toggle()
         
-        viewModel.isCellSelectedRelay.accept(isSelected)
-        configureSelectionButton(with: isSelected)
+        self.isCellSelected = isCellSelected
+        configureSelectionButton(with: isCellSelected)
         animateSelection()
     }
     
-    private func getSelectedSource() {
-        let selectedSourcesIDs = UserDefaults.standard.object(forKey: UserdefaultsKeys.selectedSourceIDs) as? [Int]
-        
-//        if selectedSourcesIDs?.contains(where: { [weak self] sourceID in
-//            sourceID == self?.packageModel.id
-//        })
-    }
-    
-    private func saveSelectedSource() {
-        
+    private func isSourceSelected() {
+        if viewModel.selectedSourcesIDs.contains(where: {$0 == sourceResponseModel.id}) {
+            
+        }
     }
 }
 
 // MARK: - Helpers
-extension PackageTableViewCell {
+extension PackageSourceTableViewCell {
     private func setupContentView() {
         backgroundColor = .clear
         selectionStyle = .none
@@ -119,9 +98,4 @@ extension PackageTableViewCell {
             }
         })
     }
-}
-
-enum PackageType {
-    case packageList
-    case packageSource
 }

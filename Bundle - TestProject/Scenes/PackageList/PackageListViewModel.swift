@@ -12,12 +12,12 @@ import RxCocoa
 class PackageListViewModel {
     private let networkLayer = NetworkLayer()
     let showLoadingStatus: BehaviorRelay<Bool> = .init(value: false)
-    let packageListResponse: BehaviorRelay<PackageDataModel?> = .init(value: nil)
+    let packageListResponse: BehaviorRelay<PackageListModel?> = .init(value: nil)
     let requestError: BehaviorRelay<CustomError> = .init(value: .defaultError)
     
     func fetch() {
         showLoadingStatus.accept(true)
-        networkLayer.request(model: PackageDataModel.self,
+        networkLayer.request(model: PackageListModel.self,
                              apiURL: .packageList) { [weak self] result in
             switch result {
             case .success(let response):

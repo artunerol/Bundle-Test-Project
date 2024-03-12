@@ -15,7 +15,7 @@ class PackageListViewController: BaseViewController {
     
     @IBOutlet var packageListTableView: UITableView! {
         didSet {
-            packageListTableView.register(UINib(nibName: PackageTableViewCell.getNibName(), bundle: nil), forCellReuseIdentifier: PackageTableViewCell.Constants.identifer)
+            packageListTableView.register(UINib(nibName: PackageListTableViewCell.getNibName(), bundle: nil), forCellReuseIdentifier: PackageListTableViewCell.Constants.identifer)
             packageListTableView.delegate = self
             packageListTableView.dataSource = self
             
@@ -87,7 +87,7 @@ extension PackageListViewController {
 
 extension PackageListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        PackageTableViewCell.Constants.height
+        PackageListTableViewCell.Constants.height
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -95,15 +95,15 @@ extension PackageListViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let selectedPackage = tableView.cellForRow(at: indexPath) as? PackageTableViewCell else { return }
+        guard let selectedPackage = tableView.cellForRow(at: indexPath) as? PackageListTableViewCell else { return }
         navigationRouter.navigate(toVC: .packageSource(id: selectedPackage.packageModel.id))
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PackageTableViewCell.Constants.identifer,for: indexPath) as? PackageTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PackageListTableViewCell.Constants.identifer,for: indexPath) as? PackageListTableViewCell else { return UITableViewCell() }
         let packageListItemArray = viewModel.packageListResponse.value?.data ?? []
         let item = packageListItemArray[indexPath.row]
-        cell.configure(with: item, type: .packageList)
+        cell.configure(with: item)
         
         return cell
     }
