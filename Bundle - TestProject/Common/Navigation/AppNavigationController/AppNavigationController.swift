@@ -23,8 +23,12 @@ class AppNavigationController: UINavigationController {
 
 extension AppNavigationController {
     private func setupNavigationController() {
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.backgroundColor = AppColor.navBar.getColor()
+        
         navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left")
         navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left")
-        navigationBar.tintColor = .white
+        navigationBar.backgroundColor = .clear
+        navigationBar.standardAppearance = barAppearance
     }
 }

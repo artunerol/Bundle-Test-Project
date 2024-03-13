@@ -20,7 +20,7 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        setNavigationBackBarButton()
+        setNavigationBar()
     }
     
     private func setupView() {
@@ -38,7 +38,13 @@ class BaseViewController: UIViewController {
         spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
-    private func setNavigationBackBarButton() {
+    private func setNavigationBar() {
+        let icon = UIImage(named: "bundle_icon")
+        let imageView = UIImageView(image:icon)
+        imageView.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+        imageView.contentMode = .scaleAspectFit
+        
+        navigationItem.titleView = imageView
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "") // Removing BackButton titles from every VC inside Navigation Stack
         edgesForExtendedLayout = .top // Stretches viewcontroller over navigationbar
     }
