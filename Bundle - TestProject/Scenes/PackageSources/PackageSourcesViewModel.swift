@@ -11,10 +11,10 @@ import RxCocoa
 
 class PackageSourcesViewModel {
     private let networkLayer = NetworkLayer()
-    var packageID: Int = 0
+    var parentPackageID: Int = 0
     var selectedSources: [Int] = []
     lazy var userdefaultsKey: String = {
-        return UserdefaultsKeys.selectedSourceIDs + "\(packageID)"
+        return UserdefaultsKeys.selectedSourceIDs + "\(parentPackageID)"
     }()
     
     let packageSourceResponse: BehaviorRelay<[PackageSourceModel]?> = .init(value: nil)
@@ -22,7 +22,7 @@ class PackageSourcesViewModel {
     
     func fetchSources() {
         networkLayer.request(model: [PackageSourceModel].self,
-                             apiURL: .packageSource(id: packageID)) { [weak self] result in
+                             apiURL: .packageSource(id: parentPackageID)) { [weak self] result in
             switch result {
             case .success(let response):
                 self?.packageSourceResponse.accept(response)

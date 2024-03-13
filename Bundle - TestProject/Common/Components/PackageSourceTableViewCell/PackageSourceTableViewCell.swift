@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class PackageSourceTableViewCell: UITableViewCell {
     struct Constants {
         static let height: CGFloat = 120
         static let identifer: String = "PackageSourceTableViewCell"
     }
+    
+    private let disposeBag = DisposeBag()
     
     @IBOutlet private var descriptionLabel: UILabel! {
         didSet {
@@ -22,7 +26,12 @@ class PackageSourceTableViewCell: UITableViewCell {
     
     @IBOutlet private var selectionButton: UIButton!
     
-    private var isCellSelected: Bool = false
+    private let isSelectedRelay: BehaviorRelay<Bool> = .init(value: false)
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        bindSelected()
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -44,6 +53,10 @@ extension PackageSourceTableViewCell {
 
 // MARK: - Helpers
 extension PackageSourceTableViewCell {
+    func configureSelectionUI() {
+        isSelectedRelay.accept(true)
+    }
+    
     private func setupContentView() {
         backgroundColor = .clear
         selectionStyle = .none
@@ -62,22 +75,10 @@ extension PackageSourceTableViewCell {
         contentView.layer.cornerRadius = 8
     }
     
-    func toggleSelection() {
-        var isCellSelectedToggled = isCellSelected
+    private func toggleSelection() {
+        var isCellSelectedToggled = isSelectedRelay.value
         isCellSelectedToggled.toggle()
-        self.isCellSelected = isCellSelectedToggled
-        
-        configureSelectionUI()
-    }
-    
-    private func configureSelectionUI() {
-        if isCellSelected {
-            selectionButton.setImage(UIImage(systemName: "checkmark.square.fill"),
-                                     for: .normal)
-        } else {
-            selectionButton.setImage(UIImage(systemName: "square"),
-                                     for: .normal)
-        }
+        isSelectedRelay.accept(isCellSelectedToggled)
     }
     
     private func animateSelection() {
@@ -91,5 +92,23 @@ extension PackageSourceTableViewCell {
                 }
             }
         })
+    }
+}
+
+// MARK: - Rxbindings
+extension PackageSourceTableViewCell {
+    private func bindSelected() {
+        isSelectedRelay
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] isCellSelected in
+                guard let self = self else { return }
+                
+                if isCellSelected {
+                    selectionButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
+                } else {
+                    selectionButton.setImage(UIImage(systemName: "square"), for: .normal)
+                }
+            }
+            .disposed(by: disposeBag)
     }
 }

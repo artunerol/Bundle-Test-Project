@@ -65,7 +65,7 @@ extension PackageSourcesViewController: UITableViewDelegate, UITableViewDataSour
         cell.configure(with: packageSourceItem[indexPath.row])
         
         if viewModel.selectedSources.contains(where: {$0 == packageSourceItem[indexPath.row].id}) {
-            cell.toggleSelection()
+            cell.configureSelectionUI()
         }
         return cell
     }
@@ -131,8 +131,10 @@ extension PackageSourcesViewController {
         let sourceIDs = viewModel.packageSourceResponse.value?.map({$0.id})
         let selectedSourceIDs = viewModel.selectedSources
         
-        if sourceIDs == selectedSourceIDs {
-            print("asdkjnasdkjn")
+        if sourceIDs?.count == selectedSourceIDs.count {
+            UserDefaults.standard.setValue(true, forKey: UserdefaultsKeys.isAllSourcesSelected + "\(viewModel.parentPackageID)")
+        } else {
+            UserDefaults.standard.setValue(false, forKey: UserdefaultsKeys.isAllSourcesSelected + "\(viewModel.parentPackageID)")
         }
     }
 }

@@ -9,4 +9,5 @@ import Foundation
 
 class UserdefaultsKeys {
     static let selectedSourceIDs = "selectedSourceIDs"
+    static let isAllSourcesSelected = "isAllSourcesSelected"
 }

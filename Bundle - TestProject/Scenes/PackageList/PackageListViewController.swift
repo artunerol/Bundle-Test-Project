@@ -29,6 +29,11 @@ class PackageListViewController: BaseViewController {
         bind()
         viewModel.fetch()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        packageListTableView.reloadData()
+    }
 }
 
 // MARK: - Rx Bindings
@@ -97,7 +102,7 @@ extension PackageListViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let selectedPackage = tableView.cellForRow(at: indexPath) as? PackageListTableViewCell else { return }
         let sourceViewModel = PackageSourcesViewModel()
-        sourceViewModel.packageID = selectedPackage.packageModel.id
+        sourceViewModel.parentPackageID = selectedPackage.packageModel.id
         
         navigationRouter.navigate(toVC: .packageSource(vm: sourceViewModel))
     }
@@ -107,6 +112,10 @@ extension PackageListViewController: UITableViewDelegate, UITableViewDataSource 
         let packageListItemArray = viewModel.packageListResponse.value?.data ?? []
         let item = packageListItemArray[indexPath.row]
         cell.configure(with: item)
+        
+        if UserDefaults.standard.bool(forKey: UserdefaultsKeys.isAllSourcesSelected + "\(item.id)") {
+            cell.configureSelectionUI()
+        }
         
         return cell
     }

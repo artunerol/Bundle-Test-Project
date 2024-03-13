@@ -42,6 +42,10 @@ class PackageListTableViewCell: UITableViewCell {
         
         configureSelectionButton(with: model.isAdded)
     }
+    
+    func configureSelectionUI() {
+        selectionButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
+    }
 }
 
 // MARK: - Helpers
