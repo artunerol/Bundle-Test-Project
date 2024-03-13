@@ -43,7 +43,9 @@
                             <constraint firstAttribute="width" constant="30" id="YuR-8g-myM"/>
                         </constraints>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" image="square" catalog="system"/>
+                        <state key="normal" image="square" catalog="system">
+                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                        </state>
                     </button>
                 </subviews>
                 <constraints>

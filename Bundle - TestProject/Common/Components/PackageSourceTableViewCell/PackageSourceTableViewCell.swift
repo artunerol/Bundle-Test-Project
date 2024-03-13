@@ -13,9 +13,6 @@ class PackageSourceTableViewCell: UITableViewCell {
         static let identifer: String = "PackageSourceTableViewCell"
     }
     
-    private let viewModel = PackageSourceCellModel()
-    private let sourceResponseModel = PackageSourceModel()
-    
     @IBOutlet private var descriptionLabel: UILabel! {
         didSet {
             descriptionLabel.textColor = .white
@@ -34,25 +31,14 @@ class PackageSourceTableViewCell: UITableViewCell {
     
     func configure(with model: PackageSourceModel) {
         descriptionLabel.text = model.name
-        configureSelectionButton(with: isCellSelected)
     }
 }
 
 // MARK: - CellDidSelected
 extension PackageSourceTableViewCell {
     func didSelected() {
-        var isCellSelected = isCellSelected
-        isCellSelected.toggle()
-        
-        self.isCellSelected = isCellSelected
-        configureSelectionButton(with: isCellSelected)
+        toggleSelection()
         animateSelection()
-    }
-    
-    private func isSourceSelected() {
-        if viewModel.selectedSourcesIDs.contains(where: {$0 == sourceResponseModel.id}) {
-            
-        }
     }
 }
 
@@ -76,8 +62,16 @@ extension PackageSourceTableViewCell {
         contentView.layer.cornerRadius = 8
     }
     
-    private func configureSelectionButton(with isAdded: Bool) {
-        if isAdded {
+    func toggleSelection() {
+        var isCellSelectedToggled = isCellSelected
+        isCellSelectedToggled.toggle()
+        self.isCellSelected = isCellSelectedToggled
+        
+        configureSelectionUI()
+    }
+    
+    private func configureSelectionUI() {
+        if isCellSelected {
             selectionButton.setImage(UIImage(systemName: "checkmark.square.fill"),
                                      for: .normal)
         } else {

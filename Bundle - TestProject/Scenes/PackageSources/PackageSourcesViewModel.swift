@@ -11,13 +11,18 @@ import RxCocoa
 
 class PackageSourcesViewModel {
     private let networkLayer = NetworkLayer()
+    var packageID: Int = 0
+    var selectedSources: [Int] = []
+    lazy var userdefaultsKey: String = {
+        return UserdefaultsKeys.selectedSourceIDs + "\(packageID)"
+    }()
     
     let packageSourceResponse: BehaviorRelay<[PackageSourceModel]?> = .init(value: nil)
     let requestError: BehaviorRelay<CustomError> = .init(value: .defaultError) //This error should be handled in reality
     
-    func fetchSources(with id: Int) {
+    func fetchSources() {
         networkLayer.request(model: [PackageSourceModel].self,
-                             apiURL: .packageSource(id: id)) { [weak self] result in
+                             apiURL: .packageSource(id: packageID)) { [weak self] result in
             switch result {
             case .success(let response):
                 self?.packageSourceResponse.accept(response)

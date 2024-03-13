@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 class PackageSourcesViewController: BaseViewController {
-    private let viewModel = PackageSourcesViewModel()
+    private let viewModel: PackageSourcesViewModel
     private let disposeBag = DisposeBag()
     
     @IBOutlet private var packageSourceTableView: UITableView! {
@@ -22,10 +22,19 @@ class PackageSourcesViewController: BaseViewController {
         }
     }
     
-    init(id: Int) {
+    init(vm: PackageSourcesViewModel) {
+        viewModel = vm
         super.init(nibName: nil, bundle: nil)
+        
         bind()
-        viewModel.fetchSources(with: id)
+        viewModel.fetchSources()
+        viewModel.selectedSources = UserDefaults.standard.getData(with: viewModel.userdefaultsKey,
+                                                                  for: [Int].self) ?? []
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        checkIfAllSourcesSelected()
     }
     
     required init?(coder: NSCoder) {
@@ -47,6 +56,7 @@ extension PackageSourcesViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? PackageSourceTableViewCell else { return }
         cell.didSelected()
+        saveSelection(for: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -54,6 +64,9 @@ extension PackageSourcesViewController: UITableViewDelegate, UITableViewDataSour
         let packageSourceItem = viewModel.packageSourceResponse.value ?? []
         cell.configure(with: packageSourceItem[indexPath.row])
         
+        if viewModel.selectedSources.contains(where: {$0 == packageSourceItem[indexPath.row].id}) {
+            cell.toggleSelection()
+        }
         return cell
     }
 }
@@ -95,5 +108,31 @@ extension PackageSourcesViewController {
                 }
             })
             .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Helpers
+extension PackageSourcesViewController {
+    private func saveSelection(for index: Int) {
+        let selectionID = viewModel.packageSourceResponse.value?[index].id ?? 0
+        
+        if !viewModel.selectedSources.contains(where: {$0 == selectionID}) {
+            //Add to selectedSources
+            viewModel.selectedSources.append(selectionID)
+            UserDefaults.standard.saveData(data: viewModel.selectedSources, key: viewModel.userdefaultsKey)
+        } else {
+            //Remove from selectedSources
+            viewModel.selectedSources.removeAll(where: {$0 == selectionID})
+            UserDefaults.standard.saveData(data: viewModel.selectedSources, key: viewModel.userdefaultsKey)
+        }
+    }
+    
+    private func checkIfAllSourcesSelected() {
+        let sourceIDs = viewModel.packageSourceResponse.value?.map({$0.id})
+        let selectedSourceIDs = viewModel.selectedSources
+        
+        if sourceIDs == selectedSourceIDs {
+            print("asdkjnasdkjn")
+        }
     }
 }

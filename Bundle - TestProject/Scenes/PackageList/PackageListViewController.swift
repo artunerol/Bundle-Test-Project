@@ -96,7 +96,10 @@ extension PackageListViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let selectedPackage = tableView.cellForRow(at: indexPath) as? PackageListTableViewCell else { return }
-        navigationRouter.navigate(toVC: .packageSource(id: selectedPackage.packageModel.id))
+        let sourceViewModel = PackageSourcesViewModel()
+        sourceViewModel.packageID = selectedPackage.packageModel.id
+        
+        navigationRouter.navigate(toVC: .packageSource(vm: sourceViewModel))
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
