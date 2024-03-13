@@ -1,4 +1,4 @@
-**Project Architecture:**
+**Project Architecture & General Info for Developer:**
 - App has been built with MVVM
 - RxSwift was used & implemented using SPM
 - Developer should inherit *BaseVC* for new created ViewControllers so that the application behaves same for every page.
